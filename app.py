@@ -13,12 +13,12 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
-    image = db.Column(db.String(100), nullable=False)
-    technologies = db.Column(db.String(100), nullable=False)
+    image = db.Column(db.String(200), nullable=False)
+    technologies = db.Column(db.String(200), nullable=False)
 
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(120), nullable=False)
     message = db.Column(db.Text, nullable=False)
 
@@ -69,7 +69,7 @@ def create_message():
         'message': message.message
     })
 
-@app.route('/api/admin/messages', methods=['GET'])
+@app.route('/api/messages', methods=['GET'])
 def get_messages():
     messages = Message.query.all()
     return jsonify([{
@@ -80,8 +80,7 @@ def get_messages():
     } for message in messages])
 
 if __name__ == '__main__':
-    if not os.path.exists('database.db'):
-        db.create_all()
+    db.create_all()
     app.run(debug=True)
 
-FILENAME: package.json
+FILENAME: client/src/App.js
